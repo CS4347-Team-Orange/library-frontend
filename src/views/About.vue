@@ -24,6 +24,9 @@
     name: "About",
     components: {
         Repo
+    },
+    created() { 
+        document.title = "Library | About"
     }
   }
 </script>

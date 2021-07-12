@@ -12,6 +12,9 @@ export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  created() { 
+      document.title = "Library | Home"
   }
 }
 </script>

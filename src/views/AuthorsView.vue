@@ -12,6 +12,9 @@ export default {
   name: "AuthorsView",
   components: {
       Authors
+  },
+  created() { 
+      document.title = "Library | Authors"
   }
 }
 </script>
