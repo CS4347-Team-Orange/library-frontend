@@ -1,6 +1,6 @@
 # Library Frontend
 
-## Run Locally (From DockerHub)
+## Local Quickstart
 
 ```
 docker-compose up -d
