@@ -1,5 +1,7 @@
 # Library Frontend
 
+[![Build Status](https://travis-ci.com/CS4347-Team-Orange/library-frontend.svg?token=MyN3vGLjp8SzdckebFqZ&branch=master)](https://travis-ci.com/CS4347-Team-Orange/library-frontend)
+
 ## Local Quickstart
 
 ```
