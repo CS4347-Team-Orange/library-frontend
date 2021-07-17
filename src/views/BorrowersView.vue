@@ -48,7 +48,7 @@ export default {
   methods: {
     getBorrowers: function () {
       this.loaded = false
-      axios.get('http://localhost:8080/api/borrower/')
+      axios.get('http://127.0.0.1:8080/api/borrower/')
         .then(response => {
             console.log(response)
             this.borrowers = response.data.data
@@ -61,7 +61,7 @@ export default {
         })
     },
     delete: function(cardNumber) { 
-      axios.delete('http://localhost:8080/api/borrower/' + cardNumber)
+      axios.delete('http://127.0.0.1:8080/api/borrower/' + cardNumber)
         .then(response => {
             console.log(response)
             this.getBorrowers()
