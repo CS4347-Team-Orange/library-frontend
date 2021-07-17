@@ -4,6 +4,7 @@ import About from '../views/About.vue'
 import AuthorsView from '../views/AuthorsView.vue'
 import BooksView from '../views/BooksView.vue'
 import BorrowersView from '../views/BorrowersView.vue'
+import BorrowersEdit from '../views/BorrowersEdit.vue'
 import CheckinView from '../views/CheckinView.vue'
 import CheckoutView from '../views/CheckoutView.vue'
 import FunctionsView from '../views/FunctionsView.vue'
@@ -34,6 +35,16 @@ const routes = [
     path: '/borrowers',
     name: 'Borrowers',
     component: BorrowersView
+  },
+  {
+    path: '/borrowers/edit/:id',
+    name: 'BorrowersEdit',
+    component: BorrowersEdit
+  },
+  {
+    path: '/borrowers/create',
+    name: 'BorrowersCreate',
+    component: BorrowersEdit
   },
   {
     path: '/checkin',
