@@ -5,6 +5,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faGithub, faFontAwesome, faVuejs } from '@fortawesome/free-brands-svg-icons'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 library.add(faGithub)
 library.add(faFontAwesome)
@@ -14,4 +16,5 @@ library.add(faHeart)
 createApp(App)
     .component("fa-icon", FontAwesomeIcon)
     .use(router)
+    .use(VueAxios, axios)
     .mount("#app");
