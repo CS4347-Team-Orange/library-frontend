@@ -9,6 +9,7 @@ import CheckinView from '../views/CheckinView.vue'
 import CheckoutView from '../views/CheckoutView.vue'
 import FunctionsView from '../views/FunctionsView.vue'
 import SearchView from '../views/SearchView.vue'
+import CheckoutHistoryView from '../views/CheckoutHistoryView.vue'
 
 const routes = [
   {
@@ -67,6 +68,11 @@ const routes = [
     name: 'Search',
     component: SearchView
   },
+  { 
+    path: '/checkoutHistory',
+    name: 'Checkout History',
+    component: CheckoutHistoryView
+  }
 ]
 
 const router = createRouter({

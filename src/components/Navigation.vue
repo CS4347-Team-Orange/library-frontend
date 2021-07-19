@@ -44,8 +44,8 @@ export default {
         },
         {
           id: 6,
-          text: 'Check-In',
-          page:'/checkin'
+          text: 'Checkout History',
+          page:'/checkoutHistory'
         },
         {
           id: 7,
