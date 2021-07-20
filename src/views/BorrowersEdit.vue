@@ -15,8 +15,13 @@
                     <input type="text" class="form-control" id="lastName" placeholder="Borrower Last Name" v-model="form.lastName">
                 </div>
                 <div class="form-group">
-                    <label for="ssn">SSN</label>
+                    <label for="phone">Phone</label>
                     <input type="text" class="form-control" id="phone" placeholder="Borrower Phone" v-model="form.phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ssn">Social Security #</label>
+                    <input type="text" class="form-control" id="ssn" placeholder="Borrower SSN" v-model="form.ssn">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -34,6 +39,12 @@
                     <label for="state">State</label>
                     <input type="text" class="form-control" id="state" placeholder="Borrower State" v-model="form.state">
                 </div>
+                
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" class="form-control" id="cardNumber" placeholder="Borrower Card ID" v-model="form.cardNumber" disabled>
+                </div>
+                
                 </form>
       </div>
   </div>

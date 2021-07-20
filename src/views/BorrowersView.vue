@@ -6,7 +6,7 @@
       </div>
       <div v-show="loaded">
           <input type="text" v-model="search" placeholder="Search">
-          <button v-on:click="this.getBorrowers()">Clear Search</button> <button v-on:click="this.new()">New Borrower</button>
+          <button v-on:click="this.getBorrowers()">Reset</button> <button v-on:click="this.new()">New Borrower</button>
           <b-alert show>Test</b-alert>
           <b-table striped hover :items="filteredBorrowers"></b-table>
           <br />
@@ -22,7 +22,7 @@
               <th></th>
             </tr>
 
-            <tr v-for="borrower in borrowers" v-bind:key="borrower">
+            <tr v-for="borrower in filteredBorrowers" v-bind:key="borrower">
                 <td>{{borrower.firstName}} {{borrower.lastName}}</td>
                 <td><a :href="'tel:' + borrower.phone">{{borrower.phone}}</a></td>
                 <td><a target="_blank" :href="'https://maps.google.com/?q=' + borrower.mapsQueryParam">{{borrower.address}} {{borrower.city}}, {{borrower.state}}</a></td>
