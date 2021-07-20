@@ -7,6 +7,8 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import "bootstrap/dist/css/bootstrap.min.css"
+
 
 library.add(faGithub)
 library.add(faFontAwesome)

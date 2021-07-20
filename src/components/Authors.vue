@@ -1,3 +1,5 @@
 <template>
-    Here we load le authors list
+    <div id="AuthorsList">
+        Here we load le authors list
+    </div>
 </template>
