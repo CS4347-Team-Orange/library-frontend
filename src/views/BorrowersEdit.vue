@@ -5,33 +5,36 @@
         Loading...
       </div>
       <div v-show="loaded">
-        <center>
-            <form v-on:submit.prevent="submitForm">
+             <form v-on:submit.prevent="submitForm">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Borrower Name" v-model="form.name">
+                    <label for="name">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Borrower First Name" v-model="form.firstName">
+                </div>
+                <div class="form-group">
+                    <label for="name">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Borrower Last Name" v-model="form.lastName">
                 </div>
                 <div class="form-group">
                     <label for="ssn">SSN</label>
-                    <input type="text" class="form-control" id="ssn" placeholder="Borrower SSN" v-model="form.ssn">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone</label>
                     <input type="text" class="form-control" id="phone" placeholder="Borrower Phone" v-model="form.phone">
                 </div>
                 <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" placeholder="Borrower Address" v-model="form.address">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" placeholder="Borrower Email" v-model="form.email">
                 </div>
                 <div class="form-group">
-                    <label for="cardNumber">Card Number</label>
-                    <input type="text" class="form-control" id="cardNumber" placeholder="Borrower Card Number" v-model="form.cardNumber" disabled>
+                    <label for="address">Street Address</label>
+                    <input type="text" class="form-control" id="address" placeholder="Borrower Street Address" v-model="form.address">
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary">Submit</button>
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" placeholder="Borrower City" v-model="form.city">
                 </div>
-            </form>
-        </center>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" id="state" placeholder="Borrower State" v-model="form.state">
+                </div>
+                </form>
       </div>
   </div>
 </template>
@@ -48,7 +51,11 @@ export default {
       borrowerId: null,
       errors: [],
       form: {
-          name: '',
+          firstName: '',
+          lastName: '',
+          city: '',
+          state: '',
+          email: '',
           ssn: '',
           phone: '',
           address: '',
@@ -62,11 +69,15 @@ export default {
         .then(response => {
             console.log(response)
             var borrower = response.data.data
-            this.form.name = borrower.name
+            this.form.firstName = borrower.firstName
+            this.form.lastName = borrower.lastName
             this.form.ssn = borrower.ssn
             this.form.phone = borrower.phone
             this.form.address = borrower.address
             this.form.cardNumber = borrower.cardNumber
+            this.form.city = borrower.city
+            this.form.state = borrower.state
+            this.form.email = borrower.email
             this.loaded = true
         })
         .catch(e => { 
