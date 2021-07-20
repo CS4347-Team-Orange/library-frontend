@@ -9,6 +9,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import "bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
+import BootstrapVue from 'bootstrap-vue-3/src/BootstrapVue'
 const path = require('path');
 
 library.add(faGithub)
@@ -20,15 +21,5 @@ createApp(App)
     .component("fa-icon", FontAwesomeIcon)
     .use(router)
     .use(VueAxios, axios)
+    .use(BootstrapVue)
     .mount("#app");
-
-module.exports = { 
-    webpackFinal: (config) => {
-        config.resolve.alias = {
-            ...config.resolve.alias,
-            '@': path.resolve(__dirname, '../src/'),
-        };
-
-        return config;
-    }
-}

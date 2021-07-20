@@ -9,6 +9,9 @@
       to render the frontend components.  <br />
       The SPA uses <a href="">vue-router</a> to serve the frontend as a single page app. <br />
       It uses <a href=""><fa-icon :icon="['fab', 'font-awesome']" />FontAwesome</a> for the icons. <br />
+      TypeScript...<br />
+      Bootstrap...<br />
+      vue-bootstrap-3 is currently under development (fork for this project)
     <h2>Backend</h2>
       <Repo name="library-backend"/><br />
     <h2>Database</h2> 

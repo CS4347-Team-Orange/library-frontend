@@ -1,16 +1,20 @@
 <template>
   <div class="BorrowersView">
     <h3>Borrowers List</h3>
+      <div v-show="hasError">
+        <b-alert variant="danger" show dismissible>
+          <strong>Error!</strong> {{ errorMessage }}
+        </b-alert>
+      </div>
       <div v-show="!loaded">
         Loading...
       </div>
       <div v-show="loaded">
           <input type="text" v-model="search" placeholder="Search">
           <button v-on:click="this.getBorrowers()">Reset</button> <button v-on:click="this.new()">New Borrower</button>
-          <b-alert show>Test</b-alert>
           <br />
           <br />
-          <table border="1">
+          <table align="center" border="1">
             <tr>
               <th>Name</th>
               <th>Phone</th>
@@ -37,17 +41,14 @@
 
 <script>
 import axios from 'axios'
-import BAlert from 'bootstrap'
-
 export default {
   name: 'BorrowersView',
-  components: { 
-    BAlert
-  },
   data () {
     return {
       borrowers: [],
       errors: [],
+      hasError: false,
+      errorMessage: '',
       loaded: false,
       search: ''
     }
@@ -64,7 +65,8 @@ export default {
           bo.ssn.toLowerCase().indexOf(this.search.toLowerCase()) > -1 || // TODO strip symbols from search
           bo.phone.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
           bo.phone.toLowerCase().indexOf(this.search.toLowerCase()) > -1 || // TOOD strip symbols from search
-          bo.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          bo.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1 || 
+          bo.cardNumber.toLowerCase().indexOf(this.search.toLowerCase()) > -1
       })
     }
   },
@@ -73,6 +75,7 @@ export default {
       this.loaded = false
       axios.get('http://localhost:8080/api/borrower/')
         .then(response => {
+          this.hasError = false
           console.log(response)
           this.borrowers = response.data.data
           for (var b in this.borrowers) { 
@@ -85,12 +88,14 @@ export default {
         .catch(e => { 
             console.log(e)
             this.errors.push(e)
-            alert("Failed to get borrowers - Check Browser Console & API Logs")
+            this.hasError = true
+            this.errorMessage = "Failed to get borrowers"
         })
     },
     httpDelete: function(cardNumber) { 
       axios.delete('http://localhost:8080/api/borrower/' + cardNumber)
         .then(response => {
+            this.hasError = false
             console.log(response)
             this.getBorrowers()
         })
@@ -98,6 +103,8 @@ export default {
             alert("Failed to delete borrower - Check Browser Console & API Logs")
             console.log(e)
             this.errors.push(e)
+            this.hasError = true
+            this.errorMessage = "Failed to get borrowers"
         })
 
 

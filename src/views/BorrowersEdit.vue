@@ -1,6 +1,11 @@
 <template>
   <div class="BorrowersEdit">
     <h3>Borrower Management</h3>
+      <div v-show="hasError">
+        <b-alert variant="danger" show dismissible>
+          <strong>Error!</strong> {{ errorMessage }}
+        </b-alert>
+      </div>
       <div v-show="!loaded">
         Loading...
       </div>
@@ -44,7 +49,9 @@
                     <label for="cardNumber">Card Number</label>
                     <input type="text" class="form-control" id="cardNumber" placeholder="Borrower Card ID" v-model="form.cardNumber" disabled>
                 </div>
-                
+                <div class="form-group">
+                    <input type="submit" value="Submit">
+                </div>
                 </form>
       </div>
   </div>
@@ -61,6 +68,8 @@ export default {
       loaded: false,
       borrowerId: null,
       errors: [],
+      hasError: false,
+      errorMessage: '',
       form: {
           firstName: '',
           lastName: '',
@@ -92,7 +101,8 @@ export default {
             this.loaded = true
         })
         .catch(e => { 
-            alert("Failed to retrieve borrower - Check Browser Console & API Logs")
+            this.errorMessage = "Failed to retrieve borrower - API returned unknown error"
+            this.hasError = true
             console.log(e)
             this.errors.push(e)
         })
@@ -100,11 +110,13 @@ export default {
     create: function() { 
         axios.post('http://localhost:8080/api/borrower/', this.form)
         .then(response => {
+            this.hasError = false;
             console.log(response)
             this.$router.push('/borrowers')
         })
         .catch(e => { 
-            alert("Failed to create borrower - Check Browser Console & API Logs")
+            this.errorMessage = "Failed to create borrower - API returned unknown error"
+            this.hasError = true
             console.log(e)
             this.errors.push(e)
         })
@@ -118,7 +130,8 @@ export default {
             this.$router.push('/borrowers')
         })
         .catch(e => { 
-            alert("Failed to update borrower - Check Browser Console & API Logs")
+            this.errorMessage = "Failed to update borrower - API returned unknown error"
+            this.hasError = true
             console.log(e)
             this.errors.push(e)
         })
