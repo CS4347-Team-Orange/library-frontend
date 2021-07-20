@@ -7,6 +7,9 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import "bootstrap"
+import "bootstrap/dist/css/bootstrap.min.css"
+const path = require('path');
 
 library.add(faGithub)
 library.add(faFontAwesome)
@@ -18,3 +21,14 @@ createApp(App)
     .use(router)
     .use(VueAxios, axios)
     .mount("#app");
+
+module.exports = { 
+    webpackFinal: (config) => {
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            '@': path.resolve(__dirname, '../src/'),
+        };
+
+        return config;
+    }
+}

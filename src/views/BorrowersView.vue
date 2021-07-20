@@ -8,7 +8,6 @@
           <input type="text" v-model="search" placeholder="Search">
           <button v-on:click="this.getBorrowers()">Reset</button> <button v-on:click="this.new()">New Borrower</button>
           <b-alert show>Test</b-alert>
-          <b-table striped hover :items="filteredBorrowers"></b-table>
           <br />
           <br />
           <table border="1">
@@ -38,9 +37,13 @@
 
 <script>
 import axios from 'axios'
+import BAlert from 'bootstrap'
 
 export default {
   name: 'BorrowersView',
+  components: { 
+    BAlert
+  },
   data () {
     return {
       borrowers: [],
