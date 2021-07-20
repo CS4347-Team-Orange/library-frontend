@@ -5,13 +5,30 @@
         Loading...
       </div>
       <div v-show="loaded">
-          <input type="text" v-model="search" placeholder="Search">
-          <button v-on:click="this.getBorrowers()">Clear Search</button> <button v-on:click="this.new()">New Borrower</button>
+        <center>
+          <button v-on:click="this.new()">New Borrower</button>
           <br />
           <br />
+          <table border="1">
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Card ID</th>
+              <th></th>
+              <th></th>
+            </tr>
 
-          <b-alert show>Test</b-alert>
-          <b-table striped hover :items="filteredBorrowers"></b-table>
+            <tr v-for="borrower in borrowers" v-bind:key="borrower">
+                <td>{{borrower.name}}</td>
+                <td>{{borrower.phone}}</td>
+                <td>{{borrower.address}}</td>
+                <td>{{borrower.cardNumber}}</td>
+                <td><button v-on:click="edit(borrower.cardNumber)">Edit</button></td>
+                <td><button v-on:click="this.delete(borrower.cardNumber)">Delete</button></td>
+            </tr>
+          </table>
+        </center>
       </div>
   </div>
 </template>
@@ -25,39 +42,16 @@ export default {
     return {
       borrowers: [],
       errors: [],
-      loaded: false,
-      search: ''
-    }
-  },
-  computed: {
-    filteredBorrowers: function() { 
-      return this.borrowers.filter(bo => {
-          return bo.firstName.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-          bo.lastName.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-          bo.address.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-          bo.city.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-          bo.state.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-          bo.ssn.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-          bo.ssn.toLowerCase().indexOf(this.search.toLowerCase()) > -1 || // TODO strip symbols from search
-          bo.phone.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
-          bo.phone.toLowerCase().indexOf(this.search.toLowerCase()) > -1 || // TOOD strip symbols from search
-          bo.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1
-      })
+      loaded: false
     }
   },
   methods: {
-    
     getBorrowers: function () {
       this.loaded = false
       axios.get('http://localhost:8080/api/borrower/')
         .then(response => {
-          console.log(response)
-          this.borrowers = response.data.data
-          for (var b in this.borrowers) { 
-            var bo = this.borrowers[b]
-            var address = bo.address + " " + bo.city + ", " + bo.state
-            bo.mapsQueryParam = encodeURIComponent(address)
-          }
+            console.log(response)
+            this.borrowers = response.data.data
           this.loaded = true
         })
         .catch(e => { 
@@ -66,7 +60,7 @@ export default {
             alert("Failed to get borrowers - Check Browser Console & API Logs")
         })
     },
-    httpDelete: function(cardNumber) { 
+    delete: function(cardNumber) { 
       axios.delete('http://localhost:8080/api/borrower/' + cardNumber)
         .then(response => {
             console.log(response)

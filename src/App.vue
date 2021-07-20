@@ -1,10 +1,8 @@
 <template>
-  <div class="container  text-center mt-5 mb-5">
-    <Navigation></Navigation>
-    <h1>Library</h1>
-    <router-view></router-view>
-    <Footer></Footer>
-  </div>
+  <Navigation></Navigation>
+  <h1>Library</h1>
+  <router-view></router-view>
+  <Footer></Footer>
 </template>
 
 <script>
