@@ -1,6 +1,11 @@
 <template>
   <div class="CheckoutHistoryView">
     <h3>Checkout History</h3>
+      <div v-show="hasError">
+        <b-alert variant="danger" show dismissible>
+          <strong>Error!</strong> {{ errorMessage }}
+        </b-alert>
+      </div>
       <div name="filters" v-show="needToSearch">
         <form v-on:submit.prevent="runSearch">
             <div class="form-group">
@@ -51,7 +56,9 @@ export default {
         search: ''
       },
       loaded: false,
-      needToSearch: true
+      needToSearch: true,
+      hasError: false,
+      errorMessage: ''
     }
   },
   methods: {
@@ -60,13 +67,15 @@ export default {
       this.loaded = false
       axios.get('http://127.0.0.1:8080/api/checkout/')
         .then(response => {
+            this.hasError = false
             console.log(response)
             this.borrowers = response.data.data
           this.loaded = true
         })
         .catch(e => { 
             console.log(e)
-            alert("Failed to get checkouts - Check Browser Console & API Logs")
+            this.errorMessage = "Failed to get checkouts"
+            this.hasError = true
         })
       this.needToSearch = false
       this.loaded = true
@@ -78,11 +87,14 @@ export default {
       }
       axios.post('http://127.0.0.1:8080/api/checkin/', postObj)
         .then(response => {
+            this.hasError = false
             console.log(response)
             this.getResults()
         })
         .catch(e => { 
-            alert("Failed to checkin - Check Browser Console & API Logs")
+            this.errorMessage = "Failed to checkin"
+            this.hasError = true
+            alert()
             console.log(e)
         })
     },
