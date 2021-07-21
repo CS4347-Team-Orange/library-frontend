@@ -3,8 +3,6 @@
 set -e
 set -o pipefail
 
-sudo apt-get -y install git
-
 if [[ "${TRAVIS_PULL_REQUEST}" == "false" && "${TRAVIS_BRANCH}" == "master" ]]; then
     echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
 fi
