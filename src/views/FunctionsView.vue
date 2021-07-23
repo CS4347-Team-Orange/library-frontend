@@ -18,7 +18,7 @@ export default {
   name: 'FunctionsView',
   methods: {
     runFines: function () { 
-      axios.get('http://127.0.0.1:8080/api/fines')
+      axios.post('http://127.0.0.1:8080/api/fines')
       .then(response => {
             console.log(response)
             var respCode = response.data.code
