@@ -2,7 +2,11 @@
   <div class="about">
     <h1>About</h1>
       <a href="https://github.com/CS4347-Team-Orange"><fa-icon :icon="['fab', 'github']" /> Team</a>
-    <h2>Frontend</h2>
+      <br />
+      <br />
+      <br />
+      
+      <h2>Frontend</h2>
       <Repo name="library-frontend"/><br />
       The project uses 
       <a href=""><fa-icon :icon="['fab', 'vuejs']" />VueJS</a>
@@ -12,10 +16,19 @@
       TypeScript...<br />
       Bootstrap...<br />
       vue-bootstrap-3 is currently under development (fork for this project)
+      <br />
+      <br />
+      <br />
     <h2>Backend</h2>
       <Repo name="library-backend"/><br />
+      <br />
+      <br />
+      <br />
     <h2>Database</h2> 
       <Repo name="library-db"/><br />
+      <br />
+      <br />
+      <br />
 
   </div>
 </template>
