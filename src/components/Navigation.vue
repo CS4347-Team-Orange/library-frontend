@@ -13,19 +13,14 @@ export default {
     return {
       links: [
         {
-          id: 0,
+          id: 1,
           text: 'Home',
           page:'/'
         },
         {
-          id: 1,
-          text: 'About',
-          page:'/about'
-        },
-        {
           id: 2,
-          text: 'Search',
-          page:'/search'
+          text: 'Catalog',
+          page:'/catalog'
         },
         {
           id: 3,
@@ -34,26 +29,21 @@ export default {
         },
         {
           id: 4,
-          text: 'Books',
-          page:'/books'
-        },
-        {
-          id: 5,
           text: 'Borrowers',
           page:'/borrowers'
         },
         {
-          id: 6,
+          id: 5,
           text: 'Check-In',
           page:'/checkin'
         },
         {
-          id: 7,
+          id: 6,
           text: 'Check-Out',
           page:'/checkout'
         },
         {
-          id: 8,
+          id: 7,
           text: 'Functions',
           page:'/functions'
         }

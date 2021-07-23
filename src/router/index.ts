@@ -8,16 +8,12 @@ import BorrowersEdit from '../views/BorrowersEdit.vue'
 import CheckinView from '../views/CheckinView.vue'
 import CheckoutView from '../views/CheckoutView.vue'
 import FunctionsView from '../views/FunctionsView.vue'
-import SearchView from '../views/SearchView.vue'
+import CatalogView from '../views/CatalogView.vue'
+import CatalogEdit from '../views/CatalogEdit.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
     name: 'About',
     component: About
   },
@@ -25,11 +21,6 @@ const routes = [
     path: '/authors',
     name: 'Authors',
     component: AuthorsView
-  },
-  {
-    path: '/books',
-    name: 'Books',
-    component: BooksView
   },
   {
     path: '/borrowers',
@@ -63,9 +54,19 @@ const routes = [
     component: FunctionsView
   },
   {
-    path: '/search',
-    name: 'Search',
-    component: SearchView
+    path: '/catalog',
+    name: 'Catalog',
+    component: CatalogView
+  },
+  {
+    path: '/catalog/edit/:id',
+    name: 'CatalogEdit',
+    component: CatalogEdit
+  },
+  {
+    path: '/catalog/add',
+    name: 'CatalogAdd',
+    component: CatalogEdit
   },
 ]
 
