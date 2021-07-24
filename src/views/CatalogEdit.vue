@@ -16,6 +16,10 @@
                     <input type="text" class="form-control" id="title" placeholder="Book Title" v-model="form.title">
                 </div>
                 <div class="form-group">
+                    <label for="pages">Author(s)</label>
+                    <input type="text" class="form-control" id="author" placeholder="Book Author(s)" v-model="form.author">
+                </div>
+                <div class="form-group">
                     <label for="pages">Pages</label>
                     <input type="text" class="form-control" id="pages" placeholder="Number of Pages" v-model="form.pages">
                 </div>
@@ -37,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label for="id">Book ID</label>
-                    <input type="text" class="form-control" id="id" placeholder="Book ID" v-model="form.id" disabled>
+                    <input type="text" class="form-control" id="id" placeholder="Book ID" v-model="form.bookId" disabled>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Submit">
@@ -68,7 +72,7 @@ export default {
           isbn10: '',
           isbn13: '',
           id: '',
-          authors: ''
+          author: ''
     }
     }
   },
@@ -84,8 +88,8 @@ export default {
             this.form.cover = book.cover
             this.form.isbn10 = book.isbn10
             this.form.isbn13 = book.isbn13
-            this.form.id = book.id
-            this.form.authors = book.authors
+            this.form.bookId = book.bookId
+            this.form.author = book.author
             this.loaded = true
         })
         .catch(e => { 

@@ -18,7 +18,7 @@
       </div>
       <div v-show="loaded">
           <input type="text" v-model="search" placeholder="Search">
-          <button v-on:click="this.getBorrowers()">Reset</button> <button v-on:click="this.new()">Add Book</button>
+          <button v-on:click="this.getBooks()">Reset</button> <button v-on:click="this.new()">Add Book</button>
           <br />
           <br />
           <table align="center" border="1">
@@ -29,13 +29,13 @@
               <th>Publisher</th>
               <th>ISBN-10</th>
               <th>ISBN-13</th>
-              <th>Checkout Btn</th>
-              <th>Edit Btn</th>
+              <th></th>
+              <th></th>
             </tr>
 
             <tr v-for="book in filteredBooks" v-bind:key="book">
                 <td>{{book.title}}</td>
-                <td>{{book.authors}}</td>
+                <td>{{book.author}}</td>
                 <td>{{book.pages}}</td>
                 <td>{{book.publisher}}</td>
                 <td>{{book.isbn10}}</td>
@@ -69,7 +69,13 @@ export default {
   computed: {
     filteredBooks: function() { 
       return this.books.filter(b => {
-          return b.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          return b.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+            b.author.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+            b.publisher.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+            b.pages.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+            b.isbn10.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+            b.isbn13.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+            b.bookId.toLowerCase().indexOf(this.search.toLowerCase()) > -1
       })
     }
   },
@@ -107,7 +113,7 @@ export default {
       }
     },
     checkIn: function(book) { 
-      axios.get('http://localhost:8080/api/checkin/' + book.id)
+      axios.get('http://localhost:8080/api/checkin/' + book.bookId)
         .then(function () {
           this.successMessage = "Checked in " + book.title
         })
@@ -119,7 +125,7 @@ export default {
         })
     },
     checkOut: function(book) { 
-      axios.get('http://localhost:8080/api/checkout/' + book.id)
+      axios.get('http://localhost:8080/api/checkout/' + book.bookId)
         .then(function () {
           this.successMessage = "Checked out " + book.title
         })
@@ -131,7 +137,7 @@ export default {
         })
     },
     delete: function(book) { 
-      axios.delete('http://localhost:8080/api/book/' + book.id)
+      axios.delete('http://localhost:8080/api/book/' + book.bookId)
         .then(response => {
             this.hasError = false
             console.log(response)
@@ -145,7 +151,7 @@ export default {
         })
     },
     edit: function(book) {
-      const url = "/catalog/edit/" + book.id 
+      const url = "/catalog/edit/" + book.bookId 
       this.$router.push(url)
     },
     new: function() { 
