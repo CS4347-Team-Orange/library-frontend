@@ -10,31 +10,32 @@
         Loading...
       </div>
       <div v-show="loaded">
-          <input type="text" v-model="search" placeholder="Search">
-          <button v-on:click="this.getBorrowers()">Reset</button> <button v-on:click="this.new()">New Borrower</button>
-          <br />
-          <br />
-          <table align="center" border="1">
-            <tr>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Address</th>
-              <th>Email</th>
-              <th>Card ID</th>
-              <th></th>
-              <th></th>
-            </tr>
+        <input type="text" v-model="search" placeholder="Search">
+        <button v-on:click="this.getBorrowers()">Reset</button> <button v-on:click="this.new()">New Borrower</button>
+        <br />
+        <br />
+        <table align="center" border="1">
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Card ID</th>
+            <th></th>
+            <th></th>
+          </tr>
 
-            <tr v-for="borrower in filteredBorrowers" v-bind:key="borrower">
-                <td>{{borrower.firstName}} {{borrower.lastName}}</td>
-                <td><a :href="'tel:' + borrower.phone">{{borrower.phone}}</a></td>
-                <td><a target="_blank" :href="'https://maps.google.com/?q=' + borrower.mapsQueryParam">{{borrower.address}} {{borrower.city}}, {{borrower.state}}</a></td>
-                <td><a target="_blank" :href="'mailto:' + borrower.email">{{borrower.email}}</a></td>
-                <td>{{borrower.cardNumber}}</td>
-                <td><button v-on:click="this.edit(borrower.cardNumber)">Edit</button></td>
-                <td><button v-on:click="this.httpDelete(borrower.cardNumber)">Delete</button></td>
-            </tr>
-          </table>
+          <tr v-for="borrower in filteredBorrowers" v-bind:key="borrower">
+              <td>{{borrower.firstName}} {{borrower.lastName}}</td>
+              <td><a :href="'tel:' + borrower.phone">{{borrower.phone}}</a></td>
+              <td><a target="_blank" :href="'https://maps.google.com/?q=' + borrower.mapsQueryParam">{{borrower.address}} {{borrower.city}}, {{borrower.state}}</a></td>
+              <td><a target="_blank" :href="'mailto:' + borrower.email">{{borrower.email}}</a></td>
+              <td>{{borrower.cardNumber}}</td>
+              <td><button v-on:click="this.history(borrower.cardNumber)">History</button></td>
+              <td><button v-on:click="this.edit(borrower.cardNumber)">Edit</button></td>
+              <td><button v-on:click="this.httpDelete(borrower.cardNumber)">Delete</button></td>
+          </tr>
+        </table>
       </div>
   </div>
 </template>
@@ -71,6 +72,16 @@ export default {
     }
   },
   methods: {
+    stopShowingSingle: function() {
+      this.showingSingle = false 
+      this.singleBorrower = {}
+      this.singleBorrowerLoans = []
+      this.singleBorrowerFines = []
+    },
+    history: function(borrowerId) {
+      const url = "/borrowers/history/" + borrowerId 
+      this.$router.push(url)
+    },
     getBorrowers: function () {
       this.loaded = false
       axios.get('http://localhost:8080/api/borrower/')

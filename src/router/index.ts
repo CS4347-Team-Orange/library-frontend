@@ -10,7 +10,7 @@ import CheckoutView from '../views/CheckoutView.vue'
 import FunctionsView from '../views/FunctionsView.vue'
 import CatalogView from '../views/CatalogView.vue'
 import CatalogEdit from '../views/CatalogEdit.vue'
-
+import BorrowerHistory from '../views/BorrowerHistory.vue'
 const routes = [
   {
     path: '/',
@@ -36,6 +36,11 @@ const routes = [
     path: '/borrowers/create',
     name: 'BorrowersCreate',
     component: BorrowersEdit
+  },
+  {
+    path: '/borrowers/history/:id',
+    name: 'BorrowerHistory',
+    component: BorrowerHistory
   },
   {
     path: '/checkin',
