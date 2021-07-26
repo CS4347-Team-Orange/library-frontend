@@ -82,7 +82,7 @@ export default {
     },
     methods: {
         checkin: function(book) { 
-            axios.get('http://localhost:8080/api/loan/checkIn/book/' + book.bookId)
+            axios.get('http://127.0.0.1:8080/api/loan/checkIn/book/' + book.bookId)
             .then(() => {
                 this.successMessage = "Checked in " + book.title
                 this.hasSuccess = true
@@ -96,7 +96,7 @@ export default {
             })
         },
         getData: function() { 
-            axios.get('http://localhost:8080/api/borrower/' + this.borrowerId)
+            axios.get('http://127.0.0.1:8080/api/borrower/' + this.borrowerId)
                 .then(response => {
                     console.log(response)
                     this.singleBorrower = response.data.data
@@ -110,7 +110,7 @@ export default {
                 })
         },
         getLoans: function() { 
-            axios.get('http://localhost:8080/api/loan/card/' + this.singleBorrower.cardNumber)
+            axios.get('http://127.0.0.1:8080/api/loan/card/' + this.singleBorrower.cardNumber)
                 .then(response => {
                     this.hasError = false
                     console.log(response)

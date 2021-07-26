@@ -108,7 +108,7 @@ export default {
   methods: {
     getBooks: function () {
       this.loaded = false
-      axios.get('http://localhost:8080/api/book/?page=' + this.pageNumber)
+      axios.get('http://127.0.0.1:8080/api/book/?page=' + this.pageNumber)
         .then(response => {
           this.hasError = false
           console.log(response)
@@ -148,7 +148,7 @@ export default {
       }
     },
     checkIn: function(book) { 
-      axios.get('http://localhost:8080/api/loan/checkIn/book/' + book.bookId)
+      axios.get('http://127.0.0.1:8080/api/loan/checkIn/book/' + book.bookId)
         .then(() => {
           this.successMessage = "Checked in " + book.title
           this.hasSuccess = true
@@ -167,7 +167,7 @@ export default {
     },
     checkOut: function(book, cardId) { 
       this.checkoutSuccess = false
-      axios.get('http://localhost:8080/api/loan/checkOut/' + book.bookId + '/' + cardId)
+      axios.get('http://127.0.0.1:8080/api/loan/checkOut/' + book.bookId + '/' + cardId)
         .then(() => {
           this.successMessage = "Checked out " + book.title
           this.hasSuccess = true
@@ -183,7 +183,7 @@ export default {
         })
     },
     delete: function(book) { 
-      axios.delete('http://localhost:8080/api/book/' + book.bookId)
+      axios.delete('http://127.0.0.1:8080/api/book/' + book.bookId)
         .then(response => {
             this.hasError = false
             console.log(response)

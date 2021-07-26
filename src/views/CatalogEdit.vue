@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     getBook: function () {
-      axios.get('http://localhost:8080/api/book/' + this.bookId)
+      axios.get('http://127.0.0.1:8080/api/book/' + this.bookId)
         .then(response => {
             console.log(response)
             var book = response.data.data
@@ -100,7 +100,7 @@ export default {
         })
     },
     create: function() { 
-        axios.post('http://localhost:8080/api/book/', this.form)
+        axios.post('http://127.0.0.1:8080/api/book/', this.form)
         .then(response => {
             this.hasError = false;
             console.log(response)
@@ -114,7 +114,7 @@ export default {
         })
     },
     update: function() { 
-        axios.patch('http://localhost:8080/api/book/', this.form)
+        axios.patch('http://127.0.0.1:8080/api/book/', this.form)
         .then(response => {
             console.log(response)
             this.$router.push('/catalog')

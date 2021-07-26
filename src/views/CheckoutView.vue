@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     checkout: function() { 
-      axios.get('http://localhost:8080/api/loan/checkOut/' + this.form.bookId + '/' + this.form.cardNumber)
+      axios.get('http://127.0.0.1:8080/api/loan/checkOut/' + this.form.bookId + '/' + this.form.cardNumber)
         .then(() => {
           this.successMessage = "Checked out success! (" + this.form.bookId + ")"
           this.form.bookId = '';

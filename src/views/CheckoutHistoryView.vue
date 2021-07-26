@@ -65,7 +65,7 @@ export default {
     getResults: function () {
       this.needToSearch = true
       this.loaded = false
-      axios.get('http://localhost:8080/api/checkout/')
+      axios.get('http://127.0.0.1:8080/api/checkout/')
         .then(response => {
             this.hasError = false
             console.log(response)
@@ -85,7 +85,7 @@ export default {
         isbn: isbn,
         cardNumber: cardNumber
       }
-      axios.post('http://localhost:8080/api/checkin/', postObj)
+      axios.post('http://127.0.0.1:8080/api/checkin/', postObj)
         .then(response => {
             this.hasError = false
             console.log(response)
