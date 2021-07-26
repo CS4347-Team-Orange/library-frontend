@@ -2,8 +2,13 @@
   <div class="BorrowersEdit">
     <h3>Borrower Management</h3>
       <div v-show="hasError">
-        <b-alert variant="danger" show dismissible>
-          <strong>Error!</strong> {{ errorMessage }}
+        <b-alert variant="danger" :max="5" show fade>
+            <strong>Error!</strong> {{ errorMessage }}
+        </b-alert>
+        </div>
+        <div v-show="hasSuccess && !hasError">
+        <b-alert variant="success" :max="5" show fade>
+            <strong>Success!</strong> {{ successMessage }}
         </b-alert>
       </div>
       <div v-show="!loaded">
@@ -52,7 +57,7 @@
                 <div class="form-group">
                     <input type="submit" value="Submit">
                 </div>
-                </form>
+            </form>
       </div>
   </div>
 </template>
@@ -70,6 +75,8 @@ export default {
       errors: [],
       hasError: false,
       errorMessage: '',
+      hasSuccess: false,
+      successMessage: '',
       form: {
           firstName: '',
           lastName: '',
@@ -101,7 +108,7 @@ export default {
             this.loaded = true
         })
         .catch(e => { 
-            this.errorMessage = "Failed to retrieve borrower - API returned unknown error"
+            this.errorMessage = "Failed to retrieve borrower.  API Returned exception: " + e.response.data.message
             this.hasError = true
             console.log(e)
             this.errors.push(e)
@@ -115,7 +122,7 @@ export default {
             this.$router.push('/borrowers')
         })
         .catch(e => { 
-            this.errorMessage = "Failed to create borrower - API returned unknown error"
+            this.errorMessage = "Failed to create borrower  API Returned exception: " + e.response.data.message
             this.hasError = true
             console.log(e)
             this.errors.push(e)
@@ -130,7 +137,7 @@ export default {
             this.$router.push('/borrowers')
         })
         .catch(e => { 
-            this.errorMessage = "Failed to update borrower - API returned unknown error"
+            this.errorMessage = "Failed to update borrower  API Returned exception: " + e.response.data.message
             this.hasError = true
             console.log(e)
             this.errors.push(e)

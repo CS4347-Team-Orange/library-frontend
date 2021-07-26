@@ -18,11 +18,13 @@
             <th>Book</th>
             <th>Checked out</th>
             <th>Checked in</th>
+            <th></th>
         </tr>
         <tr v-for="loan in singleBorrowerLoans" v-bind:key="loan">
             <td>{{ loan.book.title }}</td>
             <td>{{ loan.date_out }}</td>
             <td>{{ loan.date_in }}</td>
+            <td v-if="loan.date_in === 'CHECKED OUT'"><button v-on:click="this.checkin(loan.book)">Check in</button></td>
         </tr>
         </table>
     </div>
@@ -79,6 +81,20 @@ export default {
         this.getData()
     },
     methods: {
+        checkin: function(book) { 
+            axios.get('http://localhost:8080/api/loan/checkIn/book/' + book.bookId)
+            .then(() => {
+                this.successMessage = "Checked in " + book.title
+                this.hasSuccess = true
+                this.getLoans()
+            })
+            .catch(e => { 
+                console.log(e)
+                this.errorMessage = "Failed to check in! " + e.response.data.message 
+                this.errors.push(e)
+                this.hasError = true
+            })
+        },
         getData: function() { 
             axios.get('http://localhost:8080/api/borrower/' + this.borrowerId)
                 .then(response => {
