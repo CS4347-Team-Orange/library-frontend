@@ -46,6 +46,11 @@ export default {
           id: 7,
           text: 'Functions',
           page:'/functions'
+        },
+        {
+          id: 8,
+          text: 'Loan History',
+          page: '/loan/history'
         }
       ]
     }

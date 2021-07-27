@@ -14,11 +14,12 @@
       </div>
       <div v-show="!checkingOut">
         <input type="text" v-model="search" placeholder="Search">
-        <button v-on:click="this.getBooks()">Reset</button> <button v-on:click="this.new()">Add Book</button>
+        <button v-on:click="this.searchBooks()">Search</button> <button v-on:click="this.getBooks()">Reset</button><br />
+        <button v-on:click="this.new()">Add Book</button>
         <br />
         <br />
-        <div id="pageButtons">
-          <button v-on:click="this.decPageNumber()">Previous Page</button>
+        <div v-show="loaded && search == ''" id="pageButtons">
+          <button v-show="this.pageNumber > 1" v-on:click="this.decPageNumber()">Previous Page</button>
           <button v-on:click="this.incPageNumber()">Next Page</button>
         </div>
         <br /><br />
@@ -38,7 +39,7 @@
                 <th></th>
               </tr>
 
-              <tr v-for="book in filteredBooks" v-bind:key="book">
+              <tr v-for="book in books" v-bind:key="book">
                   <td>{{book.title}}</td>
                   <td>{{book.author}}</td>
                   <td>{{book.pages}}</td>
@@ -50,7 +51,7 @@
                   <td><button v-on:click="this.delete(book)">Delete</button></td>
               </tr>
 
-              <div v-show="filteredBooks.length === 0"> 
+              <div v-show="books.length === 0"> 
                 No results!
               </div>
 
@@ -93,22 +94,34 @@ export default {
       checkoutSuccess: false
     }
   },
-  computed: {
-    filteredBooks: function() { 
-      return this.books.filter(b => {
-        return (b.title != null && b.title.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-          (b.author != null && b.author.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-          (b.publisher != null && b.publisher.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-          (b.isbn10 != null && b.isbn10.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-          (b.isbn13 != null && b.isbn13.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-          (b.bookId != null && b.bookId.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
-      })
-    }
-  },
   methods: {
     getBooks: function () {
       this.loaded = false
       axios.get('http://127.0.0.1:8080/api/book/?page=' + this.pageNumber)
+        .then(response => {
+          this.hasError = false
+          console.log(response)
+          this.books = response.data.data
+          for (var b in this.books) { 
+            var bo = this.books[b]
+            if (bo.checkedOut) { 
+              bo.stateChangeWord = "Check In"
+            } else {
+              bo.stateChangeWord = "Check Out"
+            }
+          }
+          this.loaded = true
+        })
+        .catch(e => { 
+            console.log(e)
+            this.errors.push(e)
+            this.hasError = true
+            this.errorMessage = "Failed to get book list, API Returned error: " + e.response.data.message 
+        })
+    },
+    searchBooks: function() { 
+      this.loaded = false
+      axios.get('http://127.0.0.1:8080/api/book/search/' + this.search)
         .then(response => {
           this.hasError = false
           console.log(response)

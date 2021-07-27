@@ -35,11 +35,13 @@
             <th>Book</th>
             <th>Fine paid on</th>
             <th>Fine amount</th>
+            <th></th>
         </tr>
         <tr v-for="fine in singleBorrowerFines" v-bind:key="fine">
             <td>{{ fine.book.title }}</td>
             <td>{{ fine.paidOn }}</td>
             <td>{{ fine.amount }}</td>
+            <td>PAYMENT BUTTON HERE</td>
         </tr>
         </table>
     </div>

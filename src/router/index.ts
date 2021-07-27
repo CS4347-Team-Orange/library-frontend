@@ -11,6 +11,9 @@ import FunctionsView from '../views/FunctionsView.vue'
 import CatalogView from '../views/CatalogView.vue'
 import CatalogEdit from '../views/CatalogEdit.vue'
 import BorrowerHistory from '../views/BorrowerHistory.vue'
+import FinePayment from '../views/FinePayment.vue'
+import CheckoutHistoryView from '../views/CheckoutHistoryView.vue'
+
 const routes = [
   {
     path: '/',
@@ -73,6 +76,16 @@ const routes = [
     name: 'CatalogAdd',
     component: CatalogEdit
   },
+  {
+    path: '/fines/pay/:id',
+    name: 'FinePayment',
+    component: FinePayment
+  },
+  {
+    path: '/loan/history',
+    name: 'LoanHistory',
+    component: CheckoutHistoryView
+  }
 ]
 
 const router = createRouter({
