@@ -88,6 +88,7 @@ export default {
                     console.log(response)
                     this.successMessage = "Paid fine success! (" + this.fineId + ")"
                     this.hasSuccess = true
+                    this.hasError = false
                 }   
             })
             .catch(e => { 
