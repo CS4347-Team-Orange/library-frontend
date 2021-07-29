@@ -38,10 +38,10 @@
             <th></th>
         </tr>
         <tr v-for="fine in singleBorrowerFines" v-bind:key="fine">
-            <td>{{ fine.book.title }}</td>
-            <td>{{ fine.paidOn }}</td>
-            <td>{{ fine.amount }}</td>
-            <td>PAYMENT BUTTON HERE</td>
+            <td>{{ fine.loan.book.title }}</td>
+            <td>{{ fine.paid }}</td>
+            <td>${{ fine.fine_amt }}</td>
+            <td v-if="!fine.paid"><button v-on:click="this.payFine(fine.loan_id)">Pay</button></td>
         </tr>
         </table>
     </div>
@@ -85,7 +85,11 @@ export default {
     methods: {
         checkin: function(book) { 
             axios.get('http://127.0.0.1:8080/api/loan/checkIn/book/' + book.bookId)
-            .then(() => {
+            .then((response) => {
+                
+                if (response.data.code != 0) { 
+                    throw response.data.data.message
+                }
                 this.successMessage = "Checked in " + book.title
                 this.hasSuccess = true
                 this.getLoans()
@@ -101,8 +105,13 @@ export default {
             axios.get('http://127.0.0.1:8080/api/borrower/' + this.borrowerId)
                 .then(response => {
                     console.log(response)
+                    
+                    if (response.data.code != 0) { 
+                        throw response.data.data.message
+                    }
                     this.singleBorrower = response.data.data
                     this.getLoans()
+                    this.getFines()
                 })
                 .catch(e => { 
                     this.errorMessage = "Failed to retrieve borrower. " + e.response.data.message
@@ -116,6 +125,10 @@ export default {
                 .then(response => {
                     this.hasError = false
                     console.log(response)
+
+                    if (response.data.code != 0) { 
+                        throw response.data.data.message
+                    }
                     this.singleBorrowerLoans = response.data.data
                     for(const l in this.singleBorrowerLoans) { 
                         this.singleBorrowerLoans[l].date_out = this.truncate_time(this.singleBorrowerLoans[l].date_out)
@@ -129,8 +142,35 @@ export default {
                     console.log(e)
                     this.errors.push(e)
                     this.hasError = true
+                    this.errorMessage = "Failed to get loans " + e.response.data.message
+                })
+        },
+        getFines: function() { 
+            axios.get('http://127.0.0.1:8080/api/fine/borrower/' + this.singleBorrower.cardNumber)
+                .then(response => {
+                    if (response.data.code != 0) { 
+                        throw response.data.data.message
+                    }
+                    this.hasError = false
+                    console.log(response)
+                    this.singleBorrowerFines = response.data.data
+                    // for(const l in this.singleBorrowerFines) { 
+                    //     this.singleBorrowerFines[l].date_out = this.truncate_time(this.singleBorrowerLoans[l].date_out)
+                    // }
+                    // for(const l in this.singleBorrowerLoans) { 
+                    //     this.singleBorrowerLoans[l].date_in = this.truncate_time(this.singleBorrowerLoans[l].date_in)
+                    // }
+
+                })
+                .catch(e => { 
+                    console.log(e)
+                    this.errors.push(e)
+                    this.hasError = true
                     this.errorMessage = "Failed to get borrowers " + e.response.data.message
                 })
+        },
+        payFine: function(fineId) {
+            this.$router.push('/fines/pay/' + fineId)
         },
         truncate_time: function(ts) { 
             if (ts != null) { 

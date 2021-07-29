@@ -80,6 +80,9 @@ export default {
     getBook: function () {
       axios.get('http://127.0.0.1:8080/api/book/' + this.bookId)
         .then(response => {
+            if (response.data.code != 0) { 
+                throw response.data.data.message
+            }
             console.log(response)
             var book = response.data.data
             this.form.title = book.title
@@ -102,6 +105,9 @@ export default {
     create: function() { 
         axios.post('http://127.0.0.1:8080/api/book/', this.form)
         .then(response => {
+            if (response.data.code != 0) { 
+                throw response.data.data.message
+            }
             this.hasError = false;
             console.log(response)
             this.$router.push('/catalog')
@@ -116,6 +122,9 @@ export default {
     update: function() { 
         axios.patch('http://127.0.0.1:8080/api/book/', this.form)
         .then(response => {
+            if (response.data.code != 0) { 
+                throw response.data.data.message
+            }
             console.log(response)
             this.$router.push('/catalog')
         })

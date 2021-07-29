@@ -49,7 +49,10 @@ export default {
   methods: {
     checkout: function() { 
       axios.get('http://127.0.0.1:8080/api/loan/checkOut/' + this.form.bookId + '/' + this.form.cardNumber)
-        .then(() => {
+        .then((response) => {
+          if (response.data.code != 0) { 
+            throw response.data.data.message
+          }
           this.successMessage = "Checked out success! (" + this.form.bookId + ")"
           this.form.bookId = '';
           this.form.cardNumber = '';

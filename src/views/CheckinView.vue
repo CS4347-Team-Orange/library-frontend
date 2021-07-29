@@ -45,7 +45,10 @@ export default {
   methods: {
     checkin: function() { 
       axios.get('http://127.0.0.1:8080/api/loan/checkIn/book/' + this.form.bookId)
-        .then(() => {
+        .then((response) => {
+          if (response.data.code != 0) { 
+                throw response.data.data.message
+          }
           this.successMessage = "Checked in success! (" + this.form.bookId + ")"
           this.form.bookId = '';
           this.hasSuccess = true

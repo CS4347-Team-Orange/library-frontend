@@ -83,6 +83,9 @@ export default {
       this.loaded = false
       axios.get('http://127.0.0.1:8080/api/loan/?query=' + this.form.search)
         .then(response => {
+            if (response.data.code != 0) { 
+                throw response.data.data.message
+            }
             this.hasError = false
             console.log(response)
             this.results = response.data.data
@@ -103,7 +106,10 @@ export default {
     },
     checkin: function(bookId) { 
       axios.get('http://127.0.0.1:8080/api/loan/checkIn/book/' + bookId)
-        .then(() => {
+        .then((response) => {
+          if (response.data.code != 0) { 
+            throw response.data.data.message
+          }
           this.successMessage = "Checked in success! (" + bookId + ")"
           this.hasSuccess = true
           this.getResults()

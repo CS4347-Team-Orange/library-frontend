@@ -56,6 +56,11 @@
               </div>
 
             </table>
+
+            <div v-show="loaded && search == ''" id="pageButtons">
+              <button v-show="this.pageNumber > 1" v-on:click="this.decPageNumber()">Previous Page</button>
+              <button v-on:click="this.incPageNumber()">Next Page</button>
+            </div>
           </div>
       </div>
       <div v-show="checkingOut">
@@ -99,6 +104,9 @@ export default {
       this.loaded = false
       axios.get('http://127.0.0.1:8080/api/book/?page=' + this.pageNumber)
         .then(response => {
+          if (response.data.code != 0) { 
+                throw response.data.data.message
+          }
           this.hasError = false
           console.log(response)
           this.books = response.data.data
@@ -123,6 +131,9 @@ export default {
       this.loaded = false
       axios.get('http://127.0.0.1:8080/api/book/search/' + this.search)
         .then(response => {
+          if (response.data.code != 0) { 
+            throw response.data.data.message
+          }
           this.hasError = false
           console.log(response)
           this.books = response.data.data
@@ -162,7 +173,10 @@ export default {
     },
     checkIn: function(book) { 
       axios.get('http://127.0.0.1:8080/api/loan/checkIn/book/' + book.bookId)
-        .then(() => {
+        .then((response) => {
+          if (response.data.code != 0) { 
+            throw response.data.data.message
+          }
           this.successMessage = "Checked in " + book.title
           this.hasSuccess = true
           this.getBooks()
@@ -198,6 +212,9 @@ export default {
     delete: function(book) { 
       axios.delete('http://127.0.0.1:8080/api/book/' + book.bookId)
         .then(response => {
+            if (response.data.code != 0) { 
+                throw response.data.data.message
+            }
             this.hasError = false
             console.log(response)
             this.getBooks()

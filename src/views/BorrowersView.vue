@@ -86,6 +86,10 @@ export default {
       this.loaded = false
       axios.get('http://127.0.0.1:8080/api/borrower/')
         .then(response => {
+          
+          if (response.data.code != 0) { 
+              throw response.data.data.message
+          }
           this.hasError = false
           console.log(response)
           this.borrowers = response.data.data
@@ -106,6 +110,10 @@ export default {
     httpDelete: function(cardNumber) { 
       axios.delete('http://127.0.0.1:8080/api/borrower/' + cardNumber)
         .then(response => {
+
+            if (response.data.code != 0) { 
+                throw response.data.data.message
+            }
             this.hasError = false
             console.log(response)
             this.getBorrowers()
