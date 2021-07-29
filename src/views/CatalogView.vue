@@ -27,8 +27,8 @@
           Loading...
         </div>
         <div v-show="loaded">
-            <table align="center" border="1">
-              <tr>
+            <table align="center" border="1" >
+              <thead>
                 <th>Title</th>
                 <th>Author(s)</th>
                 <th>Pages</th>
@@ -37,7 +37,7 @@
                 <th>ISBN-13</th>
                 <th></th>
                 <th></th>
-              </tr>
+              </thead>
 
               <tr v-for="book in books" v-bind:key="book">
                   <td>{{book.title}}</td>
