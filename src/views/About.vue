@@ -22,11 +22,13 @@
     <h2>Backend</h2>
       <Repo name="library-backend"/><br />
       <br />
+      The backend uses Java 11, Spring Boot 2, and MyBatis 3 to provide a RESTful interface for the frontend.
       <br />
       <br />
     <h2>Database</h2> 
       <Repo name="library-db"/><br />
       <br />
+      The database is built using PostgreSQL 13.
       <br />
       <br />
 
