@@ -41,7 +41,7 @@
 
               <tr v-for="book in books" v-bind:key="book">
                   <td>{{book.title}}</td>
-                  <td>{{book.author}}</td>
+                  <td>{{book.authorString}}</td>
                   <td>{{book.pages}}</td>
                   <td>{{book.publisher}}</td>
                   <td>{{book.isbn10}}</td>

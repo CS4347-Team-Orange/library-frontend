@@ -13,6 +13,9 @@ import CatalogEdit from '../views/CatalogEdit.vue'
 import BorrowerHistory from '../views/BorrowerHistory.vue'
 import FinePayment from '../views/FinePayment.vue'
 import CheckoutHistoryView from '../views/CheckoutHistoryView.vue'
+import AuthorsEdit from '../views/AuthorsEdit.vue'
+import AuthorBooks from '../views/AuthorBooks.vue'
+import AuthorAttribute from '../views/AuthorAttribute.vue'
 
 const routes = [
   {
@@ -85,7 +88,28 @@ const routes = [
     path: '/loan/history',
     name: 'LoanHistory',
     component: CheckoutHistoryView
+  },
+  {
+    path: '/author/edit/:id',
+    name: 'AuthorsEdit',
+    component: AuthorsEdit
+  },
+  {
+    path: '/author/create/',
+    name: 'AuthorsCreate',
+    component: AuthorsEdit
+  },
+  {
+    path: '/author/books/:id',
+    name: 'AuthorBooks',
+    component: AuthorBooks
+  },
+  {
+    path: '/author/attribute/:id',
+    name: 'AuthorAttribute',
+    component: AuthorAttribute
   }
+  
 ]
 
 const router = createRouter({
