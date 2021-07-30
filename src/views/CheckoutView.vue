@@ -18,7 +18,7 @@
       </div>
       <div class="form-group">
           <label for="bookId">Book ID</label>
-          <input type="text" class="form-control" id="lastName" placeholder="Book UUID" v-model="form.bookId">
+          <input type="text" class="form-control" id="lastName" placeholder="Book UUID, ISBN10, or ISBN13" v-model="form.bookId">
       </div>
       <div class="form-group">
           <input type="submit" value="Submit">
