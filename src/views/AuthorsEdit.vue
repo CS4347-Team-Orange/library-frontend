@@ -86,8 +86,12 @@ export default {
     },
     update: function() { 
         console.log("Sending patch: ")
-        console.log(this.form)
-        axios.patch('http://127.0.0.1:8080/api/author/', this.form)
+        const patchLoad = { 
+            authorId: this.authorId,
+            name: this.form.name
+        }
+        console.log(patchLoad)
+        axios.patch('http://127.0.0.1:8080/api/author/', patchLoad)
         .then(response => {
             console.log(response)
             this.$router.push('/authors')

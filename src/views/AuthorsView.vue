@@ -95,8 +95,8 @@ export default {
             this.errorMessage = "Failed to get authors"
         })
     },
-    httpDelete: function(cardNumber) { 
-      axios.delete('http://127.0.0.1:8080/api/borrower/' + cardNumber)
+    httpDelete: function(authorId) { 
+      axios.delete('http://127.0.0.1:8080/api/author/' + authorId)
         .then(response => {
 
             if (response.data.code != 0) { 
@@ -104,14 +104,14 @@ export default {
             }
             this.hasError = false
             console.log(response)
-            this.getBorrowers()
+            this.getAuthors()
         })
         .catch(e => { 
-            alert("Failed to delete borrower - Check Browser Console & API Logs")
+            alert("Failed to delete author - Check Browser Console & API Logs")
             console.log(e)
             this.errors.push(e)
             this.hasError = true
-            this.errorMessage = "Failed to get borrowers"
+            this.errorMessage = "Failed to delete author"
         })
 
 
