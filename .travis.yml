@@ -1,6 +1,26 @@
 language: node_js
 node_js:
-  - 14
+- 14
 cache: yarn
 script:
-      - bash travis.sh
+- export OLDPWD=$(pwd) &&
+  mkdir -p /tmp/tf-install &&
+  cd /tmp/tf-install && 
+  wget https://releases.hashicorp.com/terraform/"$tf_version"/terraform_"$tf_version"_linux_amd64.zip && 
+  unzip terraform_"$tf_version"_linux_amd64.zip && 
+  sudo mv terraform /usr/local/bin/ &&
+  cd ${OLDPWD} && 
+  rm -rf /tmp/tf-install
+- pip3 install awscli
+- bash travis.sh
+env:
+  global:
+  - tf_version=1.1.3
+  - TF_HOST=app.terraform.io
+  - TF_ORG=alex4108
+  # TF_API_TOKEN
+  - secure: Iut5+YqwmJFKyq8qg/ySw08YyE73DCLTdpIfpLm4Vn+4zHOXdZ69VgrTqjL1LU3iiBI8ophs7GqmvJXpDST5j4kiPOmXMZYmDCdWXJslO6lCThCQqG+8kah6td9eD2gMil192ZP+4gOvKAguNvpuniPJlcGdRsVnNX06sBp3V6xXtFmPa3gWem695K5rRJeSLCvDqnNzASqPCI6vMLDaPLRRHOoad/skvL6nzu8mqgwcwboLT56OgVl3EGU4RmQO7rNH5GRI21rPLG0FMICpOdh4UGoUEzY4pwuo/MBt9Wxv/eJc4HH3MaxfXqxS9HV3pp2E6p23cwZJGfbDnlvJL90KuXGGbUyDLsOZ7TZLne1VhThm75qVCChOJ7BSB3AkWiC6qUq2zyahGL2R7HJshBinyJKHM+FWSnmj5FyuagWrVe7ZObe1BVT2r3Ei4YCXipnd67b73MOj6WlAKqZkOfHutu/1E3ZEvQJWGUZsluvSE6uSK6HY5ohq3O3IOAlyxrU5+IEvb2AfgzjuMl7V1NZLxVCyPFN4Z4CNB0IVegInL30RPh+xCuMW4htHNbzzE+kuw+NHt5zAdPhai1rNHDt5gkghQx+2Wpcx9ZSnoEFBfIWDkOUWPcTEmo9pzvmoewAOzI1KD0L0gWJ3olOlNqNJNyqcrtwzj1adEerflYA=
+  # DOCKER_PASS
+  - secure: uvi7dT9lUIoItT3w9etM2b53DIO+QavarUsnezKVMwkCxErdIferrbR7CfmX0WDWyaInQvK0vnpYAVClojCHvgQbNVYGA12UIYb6umJwjpPEQPddZ/I2eW7GM4J+U3T/Bk7NYcsDDbmaLu8GcfLLrnT/DUIz07SBZQBvIoj9UD/mEs1h9jCP9LzaMyxWRHl5TAoa+dubjfKuLhsibipSO0WB1ozV9e4b6ne/oe3UxdVziNFaSgKuJ+7o+Ir+Me47cy0ow5H1Qwocg7+QQsPbwWgTUoqNxzmlCzT6Mtm3Jv1xjWBCPZCEH3VezqxypwPVL+epDtLhA/lKm7+NIzD8bCGDift8aGCc36+NK1EwNjVkFWSHDdsyH5yipZm/D9Z0IyUcB7QfG1Ym8YcwIdMP+s6zTrVndtyoZuB5e+Fx4itLrRAsfWgntCStEtyEhkI4CYBj8R6xgL4iodmiN1LUGgTFRP1XgomM+AWI5KJHA7XEQ/ZLRf6On/8u/9T7ikzgpkbRbJAyqOPztttiYYSHiZQ4THsmQGwhcOvBRIMJUDMFHiRTo6owZPKe+cplXezCVBgNHMUPZmYn76s8Ks+9gcScwRAGaYBsX3QH+gorhtfnaG6Pgz5RRY3G1KThvRdOEAAsYEl+qptrKHs9aPNNSKZ03p8T8jsOL0G7K2YEUEw=
+  # DOCKER_USER
+  - secure: "eGHCYnVSZxB0ani2QsW8aJfaEZdDAcZUrHpGMuaUxRu/trBE9fu51L9wVhf/DmpoJRhnJxeqJ+h/+9tzxRM1XLP2a6zRU2JngsaTJc7DvGgeZ0j9ZaarGXSxMBtLHcyyAgDdKFa0Qk21r+SO9yWx3NV5lF/wWCnP4yFycQdpytRf1J4kEZyVBsaCfuguEdZuNL0TYzyUHE/1uFRov2ROHfyjXU1G4075PwrmjsEb23k+KZVveShDIhI1mT2uglBmmyWjOtBJBSZiKHTGNCGwIoT1pFzfkHPO+bXGwKxbIRr1cyh86LFy9DF1iZsIlvrDjRWjjsi5ttG+XhxNHSks4oEiMhQBSSXLidd4ulTD0oOfOdL4RDDJnA3f0BEcG6o7Leu9zfcUNcya/p4EbGRGLMbFei5rpL8bUDLer6ge/IaTr1yfAe6q0XXsypV+8HacFPV45sZg8mkpFEblrrBM7HaFz/v3Qi3E7CchFhmfP7TnoDFM2FzwAK3J4+fpGBytC4ZQlQaLsAf8zjIH9RIcBGf4sJcrfYj72v/s2ph/J3Bwa97DfN07ScsMByY1edvD0thSQyCeNvZ98dpExqP8WC7xZcZzYMPhXeqQxIOvMS40x6uMlMvK5jRYNspQH3BaMe6BqyQP3kf6jc14Tq1YqE/Jaw6vccy2vQ6/r2lVF68="
