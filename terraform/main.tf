@@ -67,6 +67,7 @@ resource "aws_lb_target_group" "this" {
   protocol  = "HTTP"
   vpc_id    = nonsensitive(data.tfe_outputs.account.values.vpc_id)
   target_type = "ip"
+  deregistration_delay = 90
 
   health_check { 
     enabled             = true
