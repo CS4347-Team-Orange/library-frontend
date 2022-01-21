@@ -21,3 +21,8 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+### Terraform ###
+terraform/.terraform*
+terraform/config.remote.tfbackend
+*.auto.tfvars
